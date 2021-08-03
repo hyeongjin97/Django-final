@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body style="text-align: center;">
+    {% extends 'base.html' %}
+
+    {% block content %}  
+    <h1>{{blog.title}}</h1>
+    작성자:{{blog.writer}}
+    날짜: {{blog.pub_date}}
+    <hr>
+    {% if blog.image %}
+    <p><img src="{{blog.image.url}}" alt=""></p>
+    {% endif %}
+    <p>{{blog.body}}</p>
+    <a href="{%url 'edit' blog.id%}">수정하기</a>
+    <a href="{%url 'delete' blog.id%}">삭제하기</a>
+    <a href="{%url 'home'%}">홈으로</a>
+    {% endblock %}
+</body>
+
+</html>
