@@ -12,8 +12,12 @@
     {%extends 'base.html'%}
 
     {%block content%}
+    {% if user.is_authenticated %}
+    {{user.location}}에 사는 {{user.university}}에 다니는 {{user.nickname}}님 안녕하세요
+
+    {% endif %}
     <h1>Blog Project</h1>
-        <a href="{% url 'new' %}">글 작성하러 가기</a>
+       
     <div class="container">
         {% for blog in blogs%}
            <div> 
