@@ -4,7 +4,7 @@
 
 <h3>blog/view.py</h3>
  
- ~~~
+ ~~~ python
  def home(request):
     blogs = Blog.objects.order_by('-pub_date')
     paginator = Paginator(blogs,3)
@@ -22,7 +22,7 @@
 
 <h3>blog/templates/home.html</h3>
 
-
+~~~ html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +35,7 @@
 </head>
 <body style="text-align: center;">
     
-~~~    
+
     {%extends 'base.html'%}
 
     {%block content%}
@@ -91,8 +91,8 @@
     {% endif %}
 
     {%endblock%}
- ~~~
+ 
 </body>
 </html>
-
+~~~
   
