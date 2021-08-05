@@ -1,13 +1,33 @@
+from django.core import paginator
 from django.shortcuts import redirect, get_object_or_404, render, get_object_or_404
+from django.core.paginator import Paginator
 from .models import Blog
+
 from django.utils import timezone
 from .forms import BlogForm
+
+
 def home(request):
-    blogs = Blog.objects.all()
+    blogs = Blog.objects.order_by('-pub_date')
+    paginator = Paginator(blogs,3)
+    page = request.GET.get('page')
+    blogs = paginator.get_page(page)
+    search = request.GET.get('search')
+    if search == 'true':
+        author = request.GET.get('writer')
+        blogs2 = Blog.objects.exclude(writer=author)
+        paginator = Paginator(blogs2,3)
+        page = request.GET.get('page')
+        blogs2 = paginator.get_page(page)
+        return render(request,'home.html', {'blogs2':blogs2})
+    
+    
     return render(request, 'home.html',{'blogs':blogs})
+
 def detail(request,id):
     blog = get_object_or_404(Blog, pk = id)
     return render(request, 'detail.html',{'blog':blog})
+
 def new(request):
     form = BlogForm()
     return render(request,'new.html',{'form':form})
